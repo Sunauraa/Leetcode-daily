@@ -22,7 +22,6 @@ class Solution:
                 while j < n - 1 and ratings[j] > ratings[j+1]:
                     j+=1
                 dis = j - i + 2
-                print(i,j)
                 if dis > prev:
                     if i-1 != 0:
                         ans-=prev
@@ -33,7 +32,6 @@ class Solution:
                     ans+= dis*(dis+1)//2
                     prev = 1
                 i = j
-            print(i,ans,prev)
             i+=1
         return ans
                         
