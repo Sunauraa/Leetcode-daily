@@ -13,7 +13,6 @@ class Solution:
         minright = [sumleft[n-1]]*n
         for i in range(n - 2 , -1 , -1 ):
             minright[i] = min( minright[i+1] , minleft[i] )
-        print(delta,sumleft,minleft,minright)
         for i in range(n):
             if i == 0:
                 if minleft[n-1] >= 0:
