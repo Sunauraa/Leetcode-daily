@@ -13,7 +13,6 @@ class Solution:
                 continue
             if curwall > 0:
                 ans+= curwall - height[i]
-            print(ans,curwall)
         return ans
 
             
