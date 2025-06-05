@@ -32,7 +32,6 @@ class Solution:
                         temp+=(' '*(minspace))
                         left -= minspace
                         numspace-=1
-                    print(left)
             else:
                 for o in range(i , j):
                     temp += words[o]
