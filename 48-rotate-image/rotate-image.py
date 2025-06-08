@@ -14,7 +14,6 @@ class Solution:
                 #print(j,k)
             check = (j + k)//2
             while k <= check:
-                print(matrix[k][j], matrix[j][k])
                 matrix[k][j], matrix[j][k] = matrix[j][k], matrix[k][j]
                 k+=1
                 j-=1
