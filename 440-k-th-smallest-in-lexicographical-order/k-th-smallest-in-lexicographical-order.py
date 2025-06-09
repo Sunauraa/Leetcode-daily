@@ -16,7 +16,6 @@ class Solution:
         steps = 0
         while curr <= n:
             steps += min( n + 1 , next) - curr
-            print(steps)
             curr*=10
             next*=10
         return steps
