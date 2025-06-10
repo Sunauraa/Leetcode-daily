@@ -18,7 +18,6 @@ class Solution:
                         minodd = i
                     if m[i] > m[maxodd]:
                         maxodd = i
-                        print('??')
                 else:
                     if mineve == 0:
                         mineve = i
