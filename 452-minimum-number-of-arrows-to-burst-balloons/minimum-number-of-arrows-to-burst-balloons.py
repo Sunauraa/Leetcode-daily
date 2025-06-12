@@ -4,7 +4,7 @@ class Solution:
         for i in points:
             temp.add( (i[0],i[1]) )
         points = list(sorted(temp))
-        print(points)
+        #print(points)
         cnt = 0
         l,r = points[0]
         for i in points:
