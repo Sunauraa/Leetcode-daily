@@ -13,5 +13,5 @@ class Solution:
                 m[s[i]] = t[i]
                 #inventory.add(s[i])
                 inventory.add(t[i])
-        print(m)
+        #print(m)
         return True
