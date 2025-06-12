@@ -6,14 +6,13 @@ class Solution:
         points = list(sorted(temp))
         #print(points)
         cnt = 0
-        l,r = points[0]
+        r = points[0][1]
         for i in points:
             if r >= i[0]:
                 r = min(r,i[1])
-                l = max(l,i[0])
             else:
                 cnt+=1
-                l,r = i
+                r = i[1]
             #print(l,r)
         return cnt+1
 
