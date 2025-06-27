@@ -1,1 +1,1 @@
-# Leetcode-daily
+# Leetcode
