@@ -22,6 +22,6 @@ class Solution:
             time = findparent(i[0])
             if time <= i[1]:
                 res+=1
-                union(time + 1, i[0])
+                parent[time] = time+1
 
         return res
