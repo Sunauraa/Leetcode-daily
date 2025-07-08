@@ -21,19 +21,15 @@ class WordDictionary:
         def dfs(curr,word):
             if not curr:
                 return
-            print(word,curr.isLeaf)
             if curr.isLeaf and not word:
                 return True
             for i in range(len(word)):
-                #print(word[i])
                 if word[i] != '.':
                     index = ord(word[i]) - ord('a')
                     if not curr.children[index]:
-                        #print(word,word[i])
                         return False
                     curr = curr.children[index]
                 else:
-                    #print(word,word[i])
                     for x in curr.children:
                         if x:
                             if dfs(x, word[i+1:]):
