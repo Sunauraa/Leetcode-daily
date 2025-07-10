@@ -9,7 +9,6 @@ class Solution:
             return None
         if head.next == None:
             return head
-        #print(head.val)
         dummy = ListNode(0, head)
         fi = se = dummy
         while se and se.next:
