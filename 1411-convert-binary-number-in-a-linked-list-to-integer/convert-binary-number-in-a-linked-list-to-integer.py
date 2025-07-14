@@ -6,7 +6,6 @@
 class Solution:
     def getDecimalValue(self, head: Optional[ListNode]) -> int:
         ans = ''
-        cur = 1
         while head:
             if head.val == 1:
                 ans+='1'
@@ -14,8 +13,8 @@ class Solution:
                 ans+='0'
             head = head.next
         res = 0
+        n = len(ans)
         for i in range(len(ans)-1,-1,-1):
             if ans[i] == '1':
-                res+=cur
-            cur*=2
+                res+=(1<<(n-i-1))
         return res
