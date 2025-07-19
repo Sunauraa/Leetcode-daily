@@ -19,11 +19,10 @@ class Solution:
                     return True
             return ord(s1) > ord(s2)
 
-        #print(ans)
+
         n = len(votes[0])
         for _ in range(n):
             for i in range(n-1):
-                #print(i)
                 if comp( ans[i], ans[i+1] ):
                     ans[i],ans[i+1] = ans[i+1],ans[i] 
 
