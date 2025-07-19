@@ -12,19 +12,13 @@ class Solution:
         l = -1
         r = 0
         ans = float('inf')
-        """print(nums)
-        print(arr)
-        print(target,res)
-        print()"""
         temp = 0
         r = 0
         for l in range(n):
             while r < n and temp < target:
                 temp += nums[r]
                 r+=1
-            #print(l,temp,r)
             if temp == target:
-                #print(l,r)
                 ans = min(ans, r - l)
             temp-= nums[l]
         if ans == float('inf'):
