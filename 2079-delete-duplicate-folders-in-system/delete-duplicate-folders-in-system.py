@@ -14,7 +14,6 @@ class Solution:
                 if folder not in node.children:
                     node.children[folder] = TrieNode()
                 node = node.children[folder]
-        print(root.children.keys())
 
         def dfs(node):
             if not node.children:
@@ -23,12 +22,11 @@ class Solution:
             for name in sorted(node.children):
                 serials.append(name + '(' + dfs(node.children[name]) + ')' )
             serial = ''.join(serials)
-            print(serial)
             seen[serial].append(node)
             return serial
             
         dfs(root)
-        
+
         for nodes in seen.values():
             if len(nodes) > 1:
                 for node in nodes:
