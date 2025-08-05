@@ -30,7 +30,6 @@ class Solution:
         cnt = 0
         for i in fruits:
             check = take(1,0,n-1,i)
-            #print(i,check)
             if not check:
                 cnt+=1
         return cnt
