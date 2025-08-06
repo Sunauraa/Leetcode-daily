@@ -1,7 +1,7 @@
 class Solution:
     def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
-        n = len(baskets)-1
-        segs = [0]*4*(n+1)
+        n = len(baskets)
+        segs = [0]*4*n
         def build(id,l,r):
             if l == r:
                 segs[id] = baskets[l]
@@ -10,7 +10,7 @@ class Solution:
             build(id*2, l, mid )
             build(id*2 +1, mid+1, r)
             segs[id] = max(segs[id*2],segs[id*2+1])
-        build(1,0,n)
+        build(1,0,n-1)
 
         def take(id,l,r,x):
             if segs[id] < x:
@@ -27,5 +27,5 @@ class Solution:
         
         ans = 0
         for i in fruits:
-            ans+= take(1,0,n,i)
-        return n+1 - ans
+            ans+= take(1,0,n-1,i)
+        return n - ans
