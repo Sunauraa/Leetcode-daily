@@ -1,29 +1,20 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         for i in range(9):
-            m = defaultdict(int)
+            if any( count > 1 and key != '.' for key,count in Counter(board[i]).items()):
+                return False
+            temp = []
             for j in range(9):
-                if board[i][j] != '.':
-                    if m[board[i][j]]:
-                        return False
-                    else:
-                        m[board[i][j]] = 1
-        for i in range(9):
-            m = defaultdict(int)
-            for j in range(9):
-                if board[j][i] != '.':
-                    if m[board[j][i]]:
-                        return False
-                    else:
-                        m[board[j][i]] = 1
-        for i in range(0, 9 , 3):
-            for j in range(0, 9, 3):
-                m = defaultdict(int)
-                for o in range(i, i + 3):
-                    for k in range(j , j + 3):
-                        if board[k][o] != '.':
-                            if m[board[k][o]]:
-                                return False
-                            else:
-                                m[board[k][o]] = 1
+                temp.append(board[j][i])
+            if any( count > 1 and key != '.' for key,count in Counter(temp).items()):
+                    return False
+
+        for i in range(0,9,3):
+            for j in range(0,9,3):
+                temp = []
+                for u in range(3):
+                    for v in range(3):
+                        temp.append(board[i+u][j+v])
+                if any( count > 1 and key != '.' for key,count in Counter(temp).items()):
+                    return False
         return True
