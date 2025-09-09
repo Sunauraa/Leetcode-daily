@@ -10,36 +10,23 @@ class Solution:
         d = defaultdict(int)
         h = defaultdict(list)
 
-        def dfs(root):
+        def dfs(root,par):
             if not root:
                 return
             u = root.val
-            v = root.left
-            if v:
-                v = v.val
-                d[v] = d[u] + 1
-                if not h[v]:
-                    h[v] = [0]*22
-                h[v][0] = u
-                for i in range(1,20):
-                    if d[v] >= (1<<i):
-                        #print(h[v][i])
-                        h[v][i] = h[ h[v][i-1] ][i-1]
-                dfs(root.left)
-            v = root.right
-            if v:
-                v = v.val
-                if not h[v]:
-                    h[v] = [0]*22
-                h[v][0] = u
-                d[v] = d[u]+1
-                for i in range(1,20):
-                    if d[v] >= (1<<i):
-                        #print(h[v][i])
-                        h[v][i] = h[ h[v][i-1] ][i-1]
-                dfs(root.right)
-        h[root.val] = [0]*22
-        dfs(root)
+            h[u] = [-1]*22
+            h[u][0] = par if par != -1 else -1
+            d[u] = d[par] + 1 if par != -1 else 1
+            for j in range(1,20):
+                if h[u][j-1] != -1:
+                    #print(u,h[u][j-1])
+                    h[u][j] = h[ h[u][j-1]][j-1]
+            dfs(root.left,u)
+            dfs(root.right,u) 
+            
+
+        h[root.val] = [-1]*22
+        dfs(root,-1)
 
         def lca( u,v ):
             if d[u] < d[v]:
@@ -52,7 +39,7 @@ class Solution:
                         u = h[u][j]
             if u == v:
                 return u
-            #k = d[u]
+
             for j in range(20,-1,-1):
                 if h[u][j] != h[v][j]:
                     u = h[u][j]
