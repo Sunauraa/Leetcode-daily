@@ -7,75 +7,71 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # Initialize dictionaries
-        depth = {}
-        parent = {}  # parent[node.val] = parent node's val
-        # For binary lifting
-        up = {}  # up[node.val][i] = 2^i-th ancestor
-        
-        def dfs(node, par):
-            if not node:
+        d = defaultdict(int)
+        h = defaultdict(list)
+
+        def dfs(root):
+            if not root:
                 return
-                
-            u = node.val
-            depth[u] = depth[par.val] + 1 if par else 0
-            parent[u] = par.val if par else -1
-            
-            # Initialize binary lifting table
-            up[u] = {}
-            up[u][0] = parent[u]
-            
-            # Fill binary lifting table
-            for i in range(1, 20):
-                if up[u][i-1] != -1 and up[u][i-1] in up:
-                    up[u][i] = up[up[u][i-1]][i-1]
-                else:
-                    up[u][i] = -1
-            
-            # Recursively process children
-            dfs(node.left, node)
-            dfs(node.right, node)
-        
-        # Start DFS from root with no parent
-        dfs(root, None)
-        
-        def get_lca(u_val, v_val):
-            u, v = u_val, v_val
-            
-            # Bring both nodes to same depth
-            if depth[u] < depth[v]:
-                u, v = v, u
-                
-            # Lift u up to depth of v
-            k = depth[u] - depth[v]
-            for i in range(20):
-                if (k >> i) & 1:
-                    u = up[u][i]
-            
+            u = root.val
+            v = root.left
+            if v:
+                v = v.val
+                d[v] = d[u] + 1
+                if not h[v]:
+                    h[v] = [0]*22
+                h[v][0] = u
+                for i in range(1,20):
+                    if d[v] >= (1<<i):
+                        #print(h[v][i])
+                        h[v][i] = h[ h[v][i-1] ][i-1]
+                dfs(root.left)
+            v = root.right
+            if v:
+                v = v.val
+                if not h[v]:
+                    h[v] = [0]*22
+                h[v][0] = u
+                d[v] = d[u]+1
+                for i in range(1,20):
+                    if d[v] >= (1<<i):
+                        #print(h[v][i])
+                        h[v][i] = h[ h[v][i-1] ][i-1]
+                dfs(root.right)
+        h[root.val] = [0]*22
+        dfs(root)
+
+        def lca( u,v ):
+            if d[u] < d[v]:
+                u,v = v,u
+            if d[u] != d[v]:
+                k = d[u] - d[v]
+                for j in range(20):
+                    if (1<<j)&k:
+                        k-=(1<<j)
+                        u = h[u][j]
             if u == v:
                 return u
-                
-            # Lift both nodes until their parents are the same
-            for i in range(19, -1, -1):
-                if up[u][i] != up[v][i]:
-                    u = up[u][i]
-                    v = up[v][i]
+            #k = d[u]
+            for j in range(20,-1,-1):
+                if h[u][j] != h[v][j]:
+                    u = h[u][j]
+                    v = h[v][j]
+            return h[u][0]
+
+        key = lca(q.val,p.val)
+        res = TreeNode(1)
+
+        def find(root):
+            nonlocal res
+            if not root:
+                return
+            if root.val == key:
+                res = root
+                return
+            find(root.left)
+            find(root.right)
+
+        find(root)
+        return res
             
-            return up[u][0]
-        
-        # Find the node with the lca value
-        lca_val = get_lca(p.val, q.val)
-        
-        # We need to return the actual TreeNode, not just the value
-        # Let's do a BFS to find the node with lca_val
-        queue = collections.deque([root])
-        while queue:
-            node = queue.popleft()
-            if node.val == lca_val:
-                return node
-            if node.left:
-                queue.append(node.left)
-            if node.right:
-                queue.append(node.right)
-        
-        return root
