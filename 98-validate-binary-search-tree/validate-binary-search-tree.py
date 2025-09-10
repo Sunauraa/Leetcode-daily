@@ -15,7 +15,6 @@ class Solution:
             
             mnl,mxl = dfs(root.left)
             mnr,mxr = dfs(root.right)
-            print(root.val, mxl,mnr)
             if mxl >= root.val:
                 res = False
             if mnr <= root.val:
