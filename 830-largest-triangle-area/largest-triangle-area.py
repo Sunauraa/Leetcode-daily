@@ -10,14 +10,12 @@ class Solution:
         def area( x,y,z ):
             u = [ z[0] - x[0], z[1] - x[1] ]
             v = [ y[0] - x[0], y[1] - x[1] ]
-            #print(u,v)
             return float( sqrt( (u[0]*v[1] - u[1]*v[0])**2 )/2 )
+        
         for i in range(n):
             for j in range(i+1,n):
                 for k in range(j+1,n):
                     u,v,w = length(points[i],points[j]), length(points[i],points[k]) , length(points[j],points[k])
                     if u + v >= w and u + w >= v and v + w >= u:
-                        #print(points[i],points[j],points[k],area(points[i],points[j],points[k]))
                         ans = max(ans, area(points[i],points[j],points[k]))
-                        #print()
         return ans
