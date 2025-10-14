@@ -20,7 +20,6 @@ class Solution:
                     tot = 0
                 cnt = 1
                 cur = num
-            print(tot,cur,cnt)
         if tot and cnt >= k:
             return True
         return False
