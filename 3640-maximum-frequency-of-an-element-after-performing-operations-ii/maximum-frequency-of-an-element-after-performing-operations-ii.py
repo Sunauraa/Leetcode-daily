@@ -15,15 +15,11 @@ class Solution:
         cur = 0
         cnt = m[key[0]]
         ans = max(freq.values())
-        #print(m)
-        #print(key)
         nums.sort()
         for num in nums:
             while cur < n - 1 and key[cur+1] <= num:
                 ans = max(ans, min(numOperations,cnt ))
                 cur+=1
-                #print('while',cnt,cur,m[cur])
                 cnt+= m[key[cur]]
             ans = max(ans, min(numOperations+freq[num], cnt ))
-            #print(cnt,cur,ans)
         return ans
