@@ -4,7 +4,7 @@ class Solution:
         res = 0
         for s in bank:
             cnt = s.count('1')
-            if cnt == 0:
+            if not cnt:
                 continue
             res+= cur*cnt
             cur = cnt
