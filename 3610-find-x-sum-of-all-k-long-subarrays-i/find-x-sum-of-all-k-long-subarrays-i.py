@@ -1,25 +1,14 @@
 class Solution:
     def findXSum(self, nums: List[int], k: int, x: int) -> List[int]:
-        m = defaultdict(int)
         n = len(nums)
-        ans = []
-
-        def count():
-            store = SortedList([ [v,k] for k,v in m.items() ])
-            sm = 0
-            #print(store)
-            for j in range( max(0,len(store)-x), len(store)):
-                sm += store[j][1]*store[j][0]
-            #print(sm)
-            return sm
-
-
-        for i in range(n):
-            m[nums[i]]+=1
-            if i >= k - 1:
-                cnt = count()
-                ans.append(cnt)
-                #print(m,cnt)
-                m[nums[i-k+1]]-=1
-        return ans
-                
+        res = []
+        for i in range(n-k+1):
+            c = Counter(nums[i:i+k])
+            heap = [(-freq,-val) for val,freq in c.items()]
+            heapq.heapify(heap)
+            s=0
+            for _ in range(min(x,len(heap))):
+                freq,val = heapq.heappop(heap)
+                s+=(-freq)*(-val)
+            res.append(s)
+        return res
