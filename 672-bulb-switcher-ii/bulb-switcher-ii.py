@@ -1,6 +1,6 @@
 class Solution:
     def flipLights(self, n: int, presses: int) -> int:
-        n = min(n,10)
+        n = min(n,3)
         dp = [ [0]*( (1 << n)) for _ in range(presses + 1) ]
         dp[0][0] = 1
         for i in range(1,presses + 1):
